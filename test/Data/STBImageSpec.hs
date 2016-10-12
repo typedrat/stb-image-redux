@@ -2,7 +2,6 @@ module Data.STBImageSpec (spec) where
 
 import qualified Data.Vector.Storable as V
 import           Test.Hspec
-import           Test.QuickCheck
 
 import           Data.STBImage
 
