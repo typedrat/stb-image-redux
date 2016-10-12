@@ -1,5 +1,5 @@
 name:                stb-image-redux
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Image loading and writing microlibrary
 description:         Please see README.md for more information.
 homepage:            https://github.com/sasinestro/stb-image-redux#readme
