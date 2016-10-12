@@ -20,10 +20,9 @@ Formats that can be read:
 - PNM (PPM and PGM binary only)
 
 Formats that can be written:
-- PNG (suboptimal, 20-50% larger than a size-optimised implementation)
+- PNG (suboptimal, 20-50% larger than a 'reasonably optimised' implementation)
 - BMP
 - TGA
-- HDR
 
 `stb_image.h` and `stb_image_write.h` are written by Sean T. Barrett and are used under the following license:
 >This software is dual-licensed to the public domain and under the following license: you are granted a perpetual, irrevocable license to copy, modify, publish, and distribute this file as you see fit.
