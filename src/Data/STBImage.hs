@@ -44,7 +44,7 @@ instance Show Color where
     show RGBA{..} = printf "(#%02X%02X%02X%02X)" _red _green _blue _alpha
 
 instance Storable Color where
-    sizeOf _ = 3
+    sizeOf _ = 4
     alignment _ = 1
     peek ptr = do
         let ptr' = castPtr ptr :: Ptr Word8
@@ -74,7 +74,7 @@ foreign import ccall "stb_image.h stbi_failure_reason" stbi_failure_reason :: IO
 foreign import ccall "stb_image.h &stbi_image_free" stbi_image_free :: FunPtr (Ptr CUChar -> IO ())
 
 {-|
-    'loadImage' loads the image file at 'path' and returns either an error message from the underlying library or the 'Image' that is 
+    'loadImage' loads the image file at 'path' and returns either an error message from the underlying library or the 'Image' that is stored in the file.
 -}
 loadImage :: FilePath -> IO (Either String Image)
 loadImage path = do
