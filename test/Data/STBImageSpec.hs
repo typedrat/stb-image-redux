@@ -23,7 +23,7 @@ firstTenPixels = V.fromList $ [
 spec :: Spec
 spec = do
     describe "image loader" $ do
-        it "loads the first ten bytes correctly" $ do
+        it "loads the first ten pixels correctly" $ do
             Right img <- loadImage "test/jellybeans.tga"
             V.take 10 (_pixels img) `shouldBe` firstTenPixels
         it "loads the same image in different formats" $ do

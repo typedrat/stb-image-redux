@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE CPP #-}
 
 {-|
 Module      : Data.STBImage
@@ -22,6 +23,9 @@ module Data.STBImage (
 
 import qualified Data.Vector.Storable as V
 import qualified Data.Vector.Storable.Mutable as MV
+#if __GLASGOW_HASKELL__ <= 710
+import           Data.Functor ((<$>))
+#endif
 import           Foreign
 import           Foreign.C.Types
 import           Foreign.C.String
