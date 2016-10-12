@@ -1,4 +1,4 @@
-# stb-image
+# stb-image-redux
 
 A Haskell library for loading and storing images, based on the simple [stb](https://github.com/nothings/stb) single-file C libraries.
 

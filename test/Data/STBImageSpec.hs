@@ -29,20 +29,20 @@ spec = do
         it "loads the same image in different formats" $ do
             Right img  <- loadImage "test/jellybeans.bmp"
             Right img' <- loadImage "test/jellybeans.tga"
-            shouldBe img img'
+            img `shouldBe` img'
     describe "image writer" $ do
         it "works idempotently" $ do
             Right img <- loadImage "test/jellybeans.tga"
             writeTGA "test/jellybeans-out.tga" img
             Right img' <- loadImage "test/jellybeans-out.tga"
-            shouldBe img img'
+            img `shouldBe` img'
         it "saves and reloads lossless images correctly across formats" $ do
             Right img <- loadImage "test/jellybeans.tga"
             writeBMP "test/jellybeans-out.bmp" img
             Right img' <- loadImage "test/jellybeans-out.bmp"
-            shouldBe img img'
+            img `shouldBe` img'
         it "saves and reloads PNG files correctly" $ do
             Right img <- loadImage "test/jellybeans.tga"
             writePNG "test/jellybeans-out.png" img
             Right img' <- loadImage "test/jellybeans-out.png"
-            shouldBe img img'
+            img `shouldBe` img'
