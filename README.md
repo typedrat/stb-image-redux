@@ -1,4 +1,5 @@
 # stb-image-redux
+[![Build Status](https://travis-ci.org/SASinestro/stb-image-redux.svg?branch=master)](https://travis-ci.org/SASinestro/stb-image-redux) [![Hackage Version](http://img.shields.io/hackage/v/stb-image-redux.svg)](http://hackage.haskell.org/package/stb-image-redux)
 
 A Haskell library for loading and storing images, based on the simple [stb](https://github.com/nothings/stb) single-file C libraries.
 
