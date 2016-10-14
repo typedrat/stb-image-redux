@@ -1,7 +1,7 @@
 name:                stb-image-redux
-version:             0.1.0.3
+version:             0.1.0.4
 synopsis:            Image loading and writing microlibrary
-description:         Please see README.md for more information.
+description:         See <https://github.com/SASinestro/stb-image-redux/blob/master/README.md>.
 homepage:            https://github.com/sasinestro/stb-image-redux#readme
 license:             BSD3
 license-file:        LICENSE
