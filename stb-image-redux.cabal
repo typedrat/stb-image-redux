@@ -1,5 +1,5 @@
 name:                stb-image-redux
-version:             0.1.0.4
+version:             0.2.0.0
 synopsis:            Image loading and writing microlibrary
 description:         See <https://github.com/SASinestro/stb-image-redux/blob/master/README.md>.
 homepage:            https://github.com/sasinestro/stb-image-redux#readme
@@ -16,8 +16,13 @@ cabal-version:       >=1.10
 library
     hs-source-dirs:      src
     exposed-modules:     Data.STBImage
-    build-depends:       base   >= 4.7       && < 5
-                       , vector >= 0.10.12.3 && < 0.12
+    other-modules:       Data.STBImage.Color
+                       , Data.STBImage.ColorTypes
+                       , Data.STBImage.Immutable
+    build-depends:       base       >= 4.7       && < 5
+                       , bifunctors >= 4.2.1              
+                       , primitive  >= 0.6       && < 0.7
+                       , vector     >= 0.10.12.3 && < 0.12
     c-sources:           src/stb_image.c
                        , src/stb_image_write.c
     include-dirs:        stb
