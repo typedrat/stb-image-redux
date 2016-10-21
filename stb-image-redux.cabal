@@ -20,7 +20,6 @@ library
                        , Data.STBImage.ColorTypes
                        , Data.STBImage.Immutable
     build-depends:       base       >= 4.8       && < 5
-                       , primitive  >= 0.6.1.0   && < 0.7
                        , vector     >= 0.10.12.3 && < 0.12
     c-sources:           src/stb_image.c
                        , src/stb_image_write.c
