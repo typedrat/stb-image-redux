@@ -12,10 +12,14 @@ import Text.Printf
 
 class Color a where
     data ColorFlag a :: *
-    loadImage :: ColorFlag a -> FilePath -> IO (Either String (Image a)) -- ^ 'loadImage' reads the image (with color depth 'Y', 'YA', 'RGB', 'RGBA') at the supplied path.
-    writePNG  :: FilePath -> Image a -> IO () -- ^ 'writePNG' writes the image passed to it out at the path 'path' in PNG format. The path must include the extension.
-    writeBMP  :: FilePath -> Image a -> IO () -- ^ 'writeBMP' writes the image passed to it out at the path 'path' in BMP format. The path must include the extension.
-    writeTGA  :: FilePath -> Image a -> IO () -- ^ 'writeTGA' writes the image passed to it out at the path 'path' in TGA format. The path must include the extension.
+    -- | 'loadImage' reads the image (with ColorFlag 'Y', 'YA', 'RGB', or 'RGBA') at the supplied path.
+    loadImage :: ColorFlag a -> FilePath -> IO (Either String (Image a))
+    -- | 'writePNG' writes the image passed to it out at the path 'path' in PNG format. The path must include the extension.
+    writePNG  :: FilePath -> Image a -> IO ()
+    -- | 'writeBMP' writes the image passed to it out at the path 'path' in BMP format. The path must include the extension.
+    writeBMP  :: FilePath -> Image a -> IO ()
+    -- | 'writeTGA' writes the image passed to it out at the path 'path' in TGA format. The path must include the extension.
+    writeTGA  :: FilePath -> Image a -> IO ()
 
     red :: a -> Word8
     green :: a -> Word8
