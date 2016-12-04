@@ -8,11 +8,12 @@ import           Data.STBImage.ColorTypes
 import           Data.STBImage.Immutable
 import qualified Data.Vector.Storable     as V
 import           Data.Word
+import           Foreign.Storable
 import           Text.Printf
 
 --
 
-class Color a where
+class (Storable a) => Color a where
     data ColorFlag a :: *
     -- | 'loadImage' reads the image (with ColorFlag 'Y', 'YA', 'RGB', or 'RGBA') at the supplied path.
     loadImage :: ColorFlag a -> FilePath -> IO (Either String (Image a))
