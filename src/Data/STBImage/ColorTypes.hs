@@ -1,11 +1,12 @@
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 module Data.STBImage.ColorTypes (YColor(..), YAColor(..), RGBColor(..), RGBAColor(..)) where
 
 import           Foreign
 import           Foreign.C.Types
+import           GHC.Generics
 
 data YColor = YColor { _yGreyscale :: Word8 }
-            deriving (Eq)
+            deriving (Eq, Generic)
 
 instance Storable YColor where
     sizeOf _ = 1
@@ -14,10 +15,10 @@ instance Storable YColor where
         let ptr' = castPtr ptr :: Ptr Word8
         y <- peek ptr'
         return $ YColor y
-    poke ptr (YColor y) = poke (castPtr ptr :: Ptr Word8) y 
+    poke ptr (YColor y) = poke (castPtr ptr :: Ptr Word8) y
 
 data YAColor = YAColor { _yaGreyscale :: Word8, _yaAlpha :: Word8 }
-             deriving (Eq)
+             deriving (Eq, Generic)
 
 instance Storable YAColor where
     sizeOf _ = 2
@@ -33,7 +34,7 @@ instance Storable YAColor where
         pokeElemOff ptr' 1 a
 
 data RGBColor = RGBColor { _rgbRed :: Word8, _rgbGreen :: Word8, _rgbBlue :: Word8 }
-               deriving (Eq)
+               deriving (Eq, Generic)
 
 instance Storable RGBColor where
     sizeOf _ = 3
@@ -51,7 +52,7 @@ instance Storable RGBColor where
         pokeElemOff ptr' 2 b
 
 data RGBAColor = RGBAColor { _rgbaRed :: Word8, _rgbaGreen :: Word8, _rgbaBlue :: Word8, _rgbaAlpha :: Word8 }
-               deriving (Eq)
+               deriving (Eq, Generic)
 
 instance Storable RGBAColor where
     sizeOf _ = 4

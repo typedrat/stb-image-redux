@@ -6,7 +6,7 @@ import           Test.Hspec
 import           Data.STBImage
 
 firstTenPixels :: V.Vector RGBColor
-firstTenPixels = V.fromList $ [
+firstTenPixels = V.fromList [
       RGBColor 0x8B 0x84 0x5A
     , RGBColor 0x8D 0x88 0x5C
     , RGBColor 0x8E 0x83 0x59

@@ -15,5 +15,5 @@ module Data.STBImage (Color(..), ColorFlag(..), YColor(..), YAColor(..), RGBColo
 
 --
 
-import Data.STBImage.Immutable
-import Data.STBImage.Color
+import           Data.STBImage.Color
+import           Data.STBImage.Immutable

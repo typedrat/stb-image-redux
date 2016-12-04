@@ -1,19 +1,21 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP           #-}
+{-# LANGUAGE DeriveGeneric #-}
 module Data.STBImage.Immutable (Image(..), unsafeCastImage, loadImageBytes, writeNChannelPNG, writeNChannelBMP, writeNChannelTGA) where
 
-import qualified Data.Vector.Storable as V
-import qualified Data.Vector.Storable.Mutable as MV
 import           Data.Either
+import qualified Data.Vector.Storable         as V
+import qualified Data.Vector.Storable.Mutable as MV
 import           Foreign
-import           Foreign.C.Types
 import           Foreign.C.String
+import           Foreign.C.Types
+import           GHC.Generics
 
-import Data.STBImage.ColorTypes
+import           Data.STBImage.ColorTypes
 
 
 -- | 'Image' is the least opinionated reasonable type to represent an image, just a vector of pixel 'Color's (laid out top-to-bottom, left-to-right) and a size.
 data Image a = Image { _pixels :: V.Vector a, _width :: Int, _height :: Int }
-           deriving (Eq) 
+           deriving (Eq, Generic)
 
 instance Show (Image a) where
     show (Image _ w h) = "Image (" ++ show w ++ "x" ++ show h ++ ")"
@@ -36,8 +38,8 @@ loadImageBytes comps path = do
 
     dataPtr <- stbi_load cPath widthPtr heightPtr nComponentsPtr (fromIntegral comps)
 
-    case dataPtr /= nullPtr of
-        True -> do
+    if dataPtr /= nullPtr
+        then do
             dataForeignPtr <- newForeignPtr stbi_image_free dataPtr
 
             width  <- fromIntegral <$> peek widthPtr :: IO Int
@@ -51,7 +53,7 @@ loadImageBytes comps path = do
             free nComponentsPtr
 
             return $ Right (Image storage width height)
-        False -> do
+        else do
             err <- peekCString =<< stbi_failure_reason
             return $ Left err
 

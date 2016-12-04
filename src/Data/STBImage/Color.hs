@@ -1,12 +1,14 @@
-{-# LANGUAGE FlexibleInstances, RecordWildCards, TypeFamilies, UndecidableInstances #-}
+{-# LANGUAGE FlexibleInstances    #-}
+{-# LANGUAGE TypeFamilies         #-}
+{-# LANGUAGE UndecidableInstances #-}
 module Data.STBImage.Color (Color(..), ColorFlag(..), YColor(..), YAColor(..), RGBColor(..), RGBAColor(..)) where
 
-import Data.Bifunctor
-import Data.Word
-import Data.STBImage.ColorTypes
-import Data.STBImage.Immutable
-import qualified Data.Vector.Storable as V
-import Text.Printf
+import           Data.Bifunctor
+import           Data.STBImage.ColorTypes
+import           Data.STBImage.Immutable
+import qualified Data.Vector.Storable     as V
+import           Data.Word
+import           Text.Printf
 
 --
 
