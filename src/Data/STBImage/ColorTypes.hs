@@ -5,6 +5,8 @@ import           Foreign
 import           Foreign.C.Types
 import           GHC.Generics
 
+{-# ANN module ("HLint: ignore Reduce duplication"::String) #-}
+
 data YColor = YColor { _yGreyscale :: Word8 }
             deriving (Eq, Generic)
 

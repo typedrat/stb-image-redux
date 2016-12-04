@@ -1,6 +1,7 @@
-{-# LANGUAGE CPP           #-}
-{-# LANGUAGE DeriveGeneric #-}
 module Data.STBImage.Immutable (Image(..), unsafeCastImage, loadImageBytes, writeNChannelPNG, writeNChannelBMP, writeNChannelTGA) where
+{-# LANGUAGE CPP             #-}
+{-# LANGUAGE DeriveGeneric   #-}
+{-# LANGUAGE RecordWildCards #-}
 
 import           Data.Either
 import qualified Data.Vector.Storable         as V
@@ -21,7 +22,7 @@ instance Show (Image a) where
     show (Image _ w h) = "Image (" ++ show w ++ "x" ++ show h ++ ")"
 
 unsafeCastImage :: (Storable a, Storable b) => Image a -> Image b
-unsafeCastImage (Image pixels w h) = Image (V.unsafeCast pixels) w h
+unsafeCastImage img@Image{ _pixels = _pixels } = img { _pixels = V.unsafeCast _pixels }
 
 --
 
@@ -42,17 +43,17 @@ loadImageBytes comps path = do
         then do
             dataForeignPtr <- newForeignPtr stbi_image_free dataPtr
 
-            width  <- fromIntegral <$> peek widthPtr :: IO Int
-            height <- fromIntegral <$> peek heightPtr :: IO Int
+            _width  <- fromIntegral <$> peek widthPtr :: IO Int
+            _height <- fromIntegral <$> peek heightPtr :: IO Int
 
-            let storage = V.unsafeFromForeignPtr0 dataForeignPtr (width * height * comps)
+            let _pixels = V.unsafeFromForeignPtr0 dataForeignPtr (_width * _height * comps)
 
             free cPath
             free widthPtr
             free heightPtr
             free nComponentsPtr
 
-            return $ Right (Image storage width height)
+            return $ Right Image{..}
         else do
             err <- peekCString =<< stbi_failure_reason
             return $ Left err
@@ -64,37 +65,37 @@ foreign import ccall "stb/stb_image_write.h stbi_write_bmp" stbi_write_bmp :: CS
 foreign import ccall "stb/stb_image_write.h stbi_write_tga" stbi_write_tga :: CString -> CInt -> CInt -> CInt -> Ptr CUChar         -> IO CInt
 
 writeNChannelPNG :: (Storable a) => CInt -> FilePath -> Image a -> IO ()
-writeNChannelPNG comps path (Image storage width height) = do
+writeNChannelPNG comps path Image{..} = do
     cPath <- newCString path
 
-    let w = fromIntegral width :: CInt
-    let h = fromIntegral height :: CInt
+    let w = fromIntegral _width :: CInt
+    let h = fromIntegral _height :: CInt
 
-    withForeignPtr (fst $ V.unsafeToForeignPtr0 storage) (\pixBuf ->
+    withForeignPtr (fst $ V.unsafeToForeignPtr0 _pixels) (\pixBuf ->
         stbi_write_png cPath w h comps (castPtr pixBuf) (w * comps) -- bytes per row
         )
 
     free cPath
 
 writeNChannelBMP :: (Storable a) => CInt -> FilePath -> Image a -> IO ()
-writeNChannelBMP comps path (Image storage width height) = do
+writeNChannelBMP comps path Image{..} = do
     cPath <- newCString path
 
-    let w = fromIntegral width :: CInt
-    let h = fromIntegral height :: CInt
+    let w = fromIntegral _width :: CInt
+    let h = fromIntegral _height :: CInt
 
-    withForeignPtr (fst $ V.unsafeToForeignPtr0 storage) $ stbi_write_bmp cPath w h comps . castPtr
+    withForeignPtr (fst $ V.unsafeToForeignPtr0 _pixels) $ stbi_write_bmp cPath w h comps . castPtr
 
     free cPath
 
 
 writeNChannelTGA :: (Storable a) => CInt -> FilePath -> Image a -> IO ()
-writeNChannelTGA comps path (Image storage width height) = do
+writeNChannelTGA comps path Image{..} = do
     cPath <- newCString path
 
-    let w = fromIntegral width :: CInt
-    let h = fromIntegral height :: CInt
+    let w = fromIntegral _width :: CInt
+    let h = fromIntegral _height :: CInt
 
-    withForeignPtr (fst $ V.unsafeToForeignPtr0 storage) $ stbi_write_tga cPath w h comps . castPtr
+    withForeignPtr (fst $ V.unsafeToForeignPtr0 _pixels) $ stbi_write_tga cPath w h comps . castPtr
 
     free cPath
