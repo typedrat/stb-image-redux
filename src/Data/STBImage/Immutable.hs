@@ -1,9 +1,10 @@
-module Data.STBImage.Immutable (Image(..), unsafeCastImage, loadImageBytes, writeNChannelPNG, writeNChannelBMP, writeNChannelTGA) where
 {-# LANGUAGE CPP             #-}
 {-# LANGUAGE DeriveGeneric   #-}
 {-# LANGUAGE RecordWildCards #-}
+module Data.STBImage.Immutable (Image(..), unsafeCastImage, flipImage, loadImageBytes, writeNChannelPNG, writeNChannelBMP, writeNChannelTGA) where
 
 import           Data.Either
+import           Data.List
 import qualified Data.Vector.Storable         as V
 import qualified Data.Vector.Storable.Mutable as MV
 import           Foreign
@@ -24,6 +25,14 @@ instance Show (Image a) where
 unsafeCastImage :: (Storable a, Storable b) => Image a -> Image b
 unsafeCastImage img@Image{ _pixels = _pixels } = img { _pixels = V.unsafeCast _pixels }
 
+--
+
+-- | Utility function to flip images, e.g. for use with OpenGL
+flipImage :: (Storable a) => Image a -> Image a
+flipImage img@Image{..} = img { _pixels = V.concat . reverse . toRows $ _pixels }
+    where
+        toRows :: (Storable a) => V.Vector a -> [V.Vector a]
+        toRows = unfoldr (\v -> if V.null v then Nothing else Just $ V.splitAt _width v)
 --
 
 foreign import ccall "stb_image.h stbi_load" stbi_load :: CString -> Ptr CInt -> Ptr CInt -> Ptr CInt -> CInt -> IO (Ptr CUChar)

@@ -29,6 +29,10 @@ spec = do
             Right img  <- loadImage RGBA "test/jellybeans.bmp"
             Right img' <- loadImage RGBA "test/jellybeans.tga"
             img `shouldBe` img'
+        it "flips an image correctly" $ do
+            Right img  <- loadImage RGBA "test/jellybeans.bmp"
+            Right img' <- loadImage RGBA "test/jellybeans-flipped.bmp"
+            flipImage img `shouldBe` img'
     describe "image writer" $ do
         it "works idempotently" $ do
             Right img <- loadImage RGBA "test/jellybeans.tga"

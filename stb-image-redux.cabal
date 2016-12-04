@@ -10,7 +10,7 @@ maintainer:          sasinestro@gmail.com
 copyright:           Copyright: (c) 2016 Alexis Williams
 category:            Graphics
 build-type:          Simple
-extra-source-files:  test/jellybeans.tga test/jellybeans.bmp stb/stb_image.h stb/stb_image_write.h
+extra-source-files:  test/jellybeans.tga test/jellybeans.bmp test/jellybeans-flipped.bmp stb/stb_image.h stb/stb_image_write.h
 cabal-version:       >=1.10
 
 library
