@@ -1,12 +1,12 @@
 name:                stb-image-redux
-version:             0.2.1.0
+version:             0.2.1.1
 synopsis:            Image loading and writing microlibrary
-description:         See <https://github.com/SASinestro/stb-image-redux/blob/master/README.md>.
-homepage:            https://github.com/sasinestro/stb-image-redux#readme
+description:         See <https://github.com/typedrat/stb-image-redux/blob/master/README.md>.
+homepage:            https://github.com/typedrat/stb-image-redux#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Alexis Williams
-maintainer:          sasinestro@gmail.com
+maintainer:          alexis@typedr.at
 copyright:           Copyright: (c) 2016 Alexis Williams
 category:            Graphics
 build-type:          Simple
@@ -42,4 +42,4 @@ test-suite stb-image-redux-tests
 
 source-repository head
     type:     git
-    location: https://github.com/sasinestro/stb-image-redux
+    location: https://github.com/typedrat/stb-image-redux
