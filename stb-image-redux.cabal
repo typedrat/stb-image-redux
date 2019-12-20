@@ -21,8 +21,8 @@ library
                        , Data.STBImage.Immutable
     build-depends:       base       >= 4.8       && < 5
                        , vector     >= 0.10.12.3 && < 0.13
-    c-sources:           src/stb_image.c
-                       , src/stb_image_write.c
+    c-sources:           cbits/stb_image.c
+                       , cbits/stb_image_write.c
     include-dirs:        stb
     cc-options:          -DSTBI_NO_HDR -DSTBI_NO_LINEAR -DSTBI_FAILURE_USERMSG
     default-language:    Haskell2010
