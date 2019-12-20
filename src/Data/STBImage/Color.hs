@@ -1,7 +1,13 @@
 {-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE TypeFamilies         #-}
 {-# LANGUAGE UndecidableInstances #-}
-module Data.STBImage.Color (Color(..), ColorFlag(..), YColor(..), YAColor(..), RGBColor(..), RGBAColor(..)) where
+module Data.STBImage.Color
+    ( Color(..)
+    , ColorFlag(..)
+    , YColor(..), YAColor(..)
+    , RGBColor(..), RGBAColor(..)
+    , showColor
+    ) where
 
 import           Data.Bifunctor
 import           Data.STBImage.ColorTypes
@@ -42,7 +48,7 @@ instance Color YColor where
     alpha _          = 255
 
 instance Show YColor where
-    show = show . ShowColor
+    show = showColor
 
 instance Show (ColorFlag YColor) where
     show _ = "Y"
@@ -60,7 +66,7 @@ instance Color YAColor where
     alpha (YAColor _ a) = a
 
 instance Show YAColor where
-    show = show . ShowColor
+    show = showColor
 
 instance Show (ColorFlag YAColor) where
     show _ = "YA"
@@ -78,7 +84,7 @@ instance Color RGBColor where
     alpha _                = 255
 
 instance Show RGBColor where
-    show = show . ShowColor
+    show = showColor
 
 instance Show (ColorFlag RGBColor) where
     show _ = "RGB"
@@ -96,12 +102,12 @@ instance Color RGBAColor where
     alpha (RGBAColor _ _ _ a) = a
 
 instance Show RGBAColor where
-    show = show . ShowColor
+    show = showColor
 
 instance Show (ColorFlag RGBAColor) where
     show _ = "RGBA"
 
-newtype ShowColor a = ShowColor a
-
-instance (Color a) => Show (ShowColor a) where
-    show (ShowColor color) = printf "(#%02X%02X%02X%02X)" (red color) (green color) (blue color) (alpha color)
+-- | 'showColor' is a default implementation of 'Show' for any instance
+--   of the 'Color' typeclass.
+showColor :: (Color a) => a -> String
+showColor color = printf "(#%02X%02X%02X%02X)" (red color) (green color) (blue color) (alpha color)

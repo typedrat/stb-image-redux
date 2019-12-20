@@ -1,0 +1,4 @@
+packages: stb-image-redux.cabal
+
+package *
+  documentation: True

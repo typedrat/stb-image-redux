@@ -11,7 +11,15 @@ Stability   : experimental
 Much like the original library, the focus of this library is placed on ease of use rather than richness of feature set, thus the rather spartan interface.
 -}
 
-module Data.STBImage (Color(..), ColorFlag(..), YColor(..), YAColor(..), RGBColor(..), RGBAColor(..), Image(..), flipImage) where
+module Data.STBImage
+    ( -- * The 'Color' Typeclass
+      Color(..)
+    , showColor
+      -- * 'Image's and their utilities
+    , Image(..), flipImage
+      -- * Individual color types
+    , YColor(..), YAColor(..), RGBColor(..), RGBAColor(..)
+    ) where
 
 --
 
