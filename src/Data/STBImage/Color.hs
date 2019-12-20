@@ -41,7 +41,10 @@ instance Color YColor where
     blue  (YColor y) = y
     alpha _          = 255
 
-instance {-# OVERLAPS #-} Show (ColorFlag YColor) where
+instance Show YColor where
+    show = show . ShowColor
+
+instance Show (ColorFlag YColor) where
     show _ = "Y"
 
 instance Color YAColor where
@@ -56,7 +59,10 @@ instance Color YAColor where
     blue  (YAColor y _) = y
     alpha (YAColor _ a) = a
 
-instance {-# OVERLAPS #-} Show (ColorFlag YAColor) where
+instance Show YAColor where
+    show = show . ShowColor
+
+instance Show (ColorFlag YAColor) where
     show _ = "YA"
 
 instance Color RGBColor where
@@ -71,7 +77,10 @@ instance Color RGBColor where
     blue  (RGBColor _ _ b) = b
     alpha _                = 255
 
-instance {-# OVERLAPS #-} Show (ColorFlag RGBColor) where
+instance Show RGBColor where
+    show = show . ShowColor
+
+instance Show (ColorFlag RGBColor) where
     show _ = "RGB"
 
 instance Color RGBAColor where
@@ -86,8 +95,13 @@ instance Color RGBAColor where
     blue  (RGBAColor _ _ b _) = b
     alpha (RGBAColor _ _ _ a) = a
 
-instance {-# OVERLAPS #-} Show (ColorFlag RGBAColor) where
+instance Show RGBAColor where
+    show = show . ShowColor
+
+instance Show (ColorFlag RGBAColor) where
     show _ = "RGBA"
 
-instance {-# OVERLAPS #-} (Color a) => Show a where
-    show color = printf "(#%02X%02X%02X%02X)" (red color) (green color) (blue color) (alpha color)
+newtype ShowColor a = ShowColor a
+
+instance (Color a) => Show (ShowColor a) where
+    show (ShowColor color) = printf "(#%02X%02X%02X%02X)" (red color) (green color) (blue color) (alpha color)
